@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import Post
-from .forms import PostForm
+import forms
+from userManeger import Account_login
 
 # Create your views here.
 
@@ -19,7 +20,7 @@ def post_detail(request, pk):
 
 def post_new(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = forms.PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -28,14 +29,14 @@ def post_new(request):
             return redirect('post_detail', pk=post.pk)
 
     else:
-        form = PostForm()
+        form = forms.ostForm()
         return render(request, 'blog/post_edit.html', {'form': form})
 
 
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
+        form = forms.PostForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -44,5 +45,13 @@ def post_edit(request, pk):
             return redirect('post_detail', pk=post.pk)
 
     else:
-        form = PostForm(instance=post)
+        form = forms.PostForm(instance=post)
         return render(request, 'blog/post_edit.html', {'form': form})
+
+
+def post_login(request):
+    if request.method == "POST":
+        account_login = Account_login.as_view()
+
+    else:
+        return render(request, 'blog/post_login.html')
