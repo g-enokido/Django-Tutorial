@@ -1,29 +1,12 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>試作型ブログ01</title>
-</head>
-
-<body>
-    <div>
-        <h1><a href="/">Django Tutorial Blog</a></h1>
+{% extends 'blog/base.html' %}
+{% block content%}
+{% for post in posts %}
+<div class="post">
+    <div class="date">
+        {{ post.published_date }}
     </div>
-    <div>
-        {% for post in posts %}
-        <p>{{ post.title }}</p>
-        <p>{{ post.text | linebreaksbr }}</p>
-        <p>{{ post.publoshed_date }}</p>
-        {% endfor %}
-        <h2><a href="">My first post</a></h2>
-        <p>こんにちは！死ね！</p>
-    </div>
-    <hr>
-    <div>
-        <p>公開日：2014年06月14日　12時14分</p>
-        <h2><a href="">2番めの投稿</a></h2>
-        <p>何も問題は無いようじゃがのぉ</p>
-    </div>
-</body>
-
-</html>
+    <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
+    <p>{{ post.text|linebreaksbr }}</p>
+</div>
+{% endfor %}
+{% endblock %}
