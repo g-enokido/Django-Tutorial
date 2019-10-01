@@ -8,4 +8,5 @@ urlpatterns = [
     path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
     path('login', include('django.contrib.auth.urls')),
     path('signup/', include('signup.urls')),
+    path('post/<int:pk>/comment/', include('comment.urls')),
 ]

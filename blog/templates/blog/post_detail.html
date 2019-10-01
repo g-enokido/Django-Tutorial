@@ -7,7 +7,6 @@
     </div>
     {% endif %}
 
-
     <div class="title_box">
         <h2>{{ post.title }}</h2>
     </div>
@@ -18,4 +17,26 @@
             glyphicon-pencil"></span>編集する</a>
 
     {% endif %}
-    {% endblock %}
+    <hr>
+    <h4>コメント欄</h4>
+    <form method="POST" class="commentForm" action='comment/submission/'>{% csrf_token %}
+        <input type="hidden" name='article_id' value=pk>
+        <div>
+            名前：
+
+            <input type="text" name="author" value={% if user.is_authenticated %}{{ user.get_username }}
+                {% else %}"名無しさん"{% endif %}>
+
+
+        </div>
+        <div>
+            <p>コメント</p><textarea name="text"></textarea>
+        </div>
+        <button type="submit">投稿</button>
+    </form>
+    {% for comments in comment %}
+    <hr>
+    <div>投稿者：{{ comments.author }}</div>
+    <div>
+        <p>コメント</p>{{ comments.text }}
+    </div> {% endfor %} {% endblock %}

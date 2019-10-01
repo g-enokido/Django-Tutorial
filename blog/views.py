@@ -1,8 +1,7 @@
-
-
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_protect
 from django.utils import timezone
+from comment.models import Comment
 from .models import Post
 from .forms import PostForm
 
@@ -11,13 +10,14 @@ from .forms import PostForm
 
 def post_list(request):
     posts = Post.objects.filter(
-        published_date__lte=timezone.now()).order_by('published_date')
+        published_date__lte=timezone.now()).order_by('published_date').reverse()
     return render(request, 'blog/post_list.html', {'posts': posts})
 
 
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    return render(request, 'blog/post_detail.html', {'post': post})
+    comment = Comment.objects.filter(article_id=pk)
+    return render(request, 'blog/post_detail.html', {'post': post, 'comment': comment})
 
 
 @csrf_protect
