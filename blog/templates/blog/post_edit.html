@@ -1,6 +1,10 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+
+<head>
+    <title>{% block title %}記事編集ページ{% endblock%}</title>
+</head>
 <h2>New post</h2>
 <form method="POST" class="post-form">{% csrf_token %}
     {{ form.as_p }}
