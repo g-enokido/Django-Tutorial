@@ -6,13 +6,9 @@
 
 <body>
     <h1>ログインページ</h1>
-    <form method="POST" class="post_login">
-        <div>
-            <p>ID:<input type="text" /></p>
-        </div>
-        <div>
-            <p>パスワード：<input type="password" /></p>
-        </div>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
         <div><button type="submit" value="login"">ログイン</div>
     </form>
 </body>

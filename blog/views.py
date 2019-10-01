@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.decorators.csrf import csrf_protect
 from django.utils import timezone
 from .models import Post
-import forms
-from userManeger import Account_login
+from .forms import PostForm
 
 # Create your views here.
 
@@ -18,9 +18,10 @@ def post_detail(request, pk):
     return render(request, 'blog/post_detail.html', {'post': post})
 
 
+@csrf_protect
 def post_new(request):
     if request.method == "POST":
-        form = forms.PostForm(request.POST)
+        form = PostForm(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -29,14 +30,15 @@ def post_new(request):
             return redirect('post_detail', pk=post.pk)
 
     else:
-        form = forms.ostForm()
+        form = PostForm()
         return render(request, 'blog/post_edit.html', {'form': form})
 
 
+@csrf_protect
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
-        form = forms.PostForm(request.POST, instance=post)
+        form = PostForm(request.POST, instance=post)
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
@@ -45,13 +47,9 @@ def post_edit(request, pk):
             return redirect('post_detail', pk=post.pk)
 
     else:
-        form = forms.PostForm(instance=post)
+        form = PostForm(instance=post)
         return render(request, 'blog/post_edit.html', {'form': form})
 
 
 def post_login(request):
-    if request.method == "POST":
-        account_login = Account_login.as_view()
-
-    else:
-        return render(request, 'blog/post_login.html')
+    return render(request, 'blog/post_login.html')
