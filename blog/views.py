@@ -23,13 +23,12 @@ def post_detail(request, pk):
 @csrf_protect
 def post_new(request):
     if request.method == "POST":
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
-            return redirect('post_detail', pk=post.pk)
+            form.author = request.user
+            form.published_date = timezone.now()
+            form.save()
+            return redirect('post_detail', pk=form.pk)
 
     else:
         form = PostForm()
@@ -40,12 +39,11 @@ def post_new(request):
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == "POST":
-        form = PostForm(request.POST, instance=post)
+        form = PostForm(request.POST, request.FILES, instance=post)
         if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.published_date = timezone.now()
-            post.save()
+            form.author = request.user
+            form.published_date = timezone.now()
+            form.save()
             return redirect('post_detail', pk=post.pk)
 
     else:

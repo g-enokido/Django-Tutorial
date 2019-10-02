@@ -6,7 +6,8 @@ from django.contrib.auth.forms import AuthenticationForm
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'text',)
+        image = forms.ImageField(label='画像ファイル')
+        fields = ['title', 'text', 'image', ]
 
 
 class LoginForm(AuthenticationForm):
