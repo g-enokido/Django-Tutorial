@@ -5,11 +5,13 @@
 <head>
     <title>{% block title %}記事編集ページ{% endblock%}</title>
 </head>
-<h2>New post</h2>
-<form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
-    {{ form.as_p }}
-    <h1> 編集ID:{{ user.get_username }} </h1>
-    <input type="hidden" name="author_id" value="{{ user.get_id }}">
-    <button type="submmit" class="save btn btn-default">投稿する</button>
-</form>
+<div class="content">
+    <h2>New post</h2>
+    <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
+        {{ form.as_p }}
+        <h1> 編集ID:{{ user.get_username }} </h1>
+        <input type="hidden" name="author_id" value="{{ user.get_id }}">
+        <button type="submmit" class="save btn btn-default">投稿する</button>
+    </form>
+</div>
 {% endblock %}
