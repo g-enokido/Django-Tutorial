@@ -7,7 +7,7 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         image = forms.ImageField(label='画像ファイル')
-        fields = ['title', 'text', 'image', ]
+        fields = ['title', 'text', 'image']
 
 
 class LoginForm(AuthenticationForm):

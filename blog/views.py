@@ -3,15 +3,24 @@ from django.views.decorators.csrf import csrf_protect
 from django.utils import timezone
 from comment.models import Comment
 from .models import Post
+from signup.models import Blog
 from .forms import PostForm
 
 # Create your views here.
 
 
-def post_list(request):
+def index(request):
+    blogs = Blog.objects.all()
     posts = Post.objects.filter(
-        published_date__lte=timezone.now()).order_by('published_date').reverse()
-    return render(request, 'blog/post_list.html', {'posts': posts})
+        published_date__lte=timezone.now()).order_by('created_date').reverse()
+    return render(request, 'blog/index.html', {'articles': posts, 'blogs': blogs})
+
+
+def post_list(request, pk):
+    posts = Post.objects.filter(
+        published_date__lte=timezone.now(), blog_id=pk).order_by('created_date').reverse()
+
+    return render(request, 'blog/post_list.html', {'posts': posts, 'blogId': pk})
 
 
 def post_detail(request, pk):

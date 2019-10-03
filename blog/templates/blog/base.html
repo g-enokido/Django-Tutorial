@@ -9,8 +9,12 @@
     <link rel='stylesheet' type='text/css' 　href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext'>
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
     <div class="top-menu">
+        {% if blogId is not None %}
+        <h1><a href="/">いぼんこおおおおおおお</a></h1>
+        {% endif %}
         {% if user.is_authenticated %}
         <a href="{% url 'post_new' %}" class="menu-item"><span class="glyphicon glyphicon-plus"></span></a>
+        <a href="{% url 'blog_settings' %}" class="menu-item">ブログ開設</a>
         <a href="{% url 'logout' %}" class="menu-item">ログアウト</a>
         {% else %}
         <a href="{% url 'login' %}" class="menu-item">ログイン</a>
@@ -21,7 +25,11 @@
 
 <body>
     <div class="page-header">
+        {% if blogId is None %}
         <h1><a href="/">満足日記</a></h1>
+        {% else%}
+        <h1><a href="/{{ blogId }}">満足日記</a></h1>
+        {% endif %}
 
     </div>
 
