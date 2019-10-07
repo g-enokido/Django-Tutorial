@@ -8,6 +8,7 @@ class Comment(models.Model):
     author = models.CharField(max_length=200)
     text = models.TextField()
     article_id = models.IntegerField()
+    blog_id = models.IntegerField(default=0)
     created_date = models.DateField(default=timezone.now)
 
     def publish(self):

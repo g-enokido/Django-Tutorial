@@ -21,7 +21,7 @@ def Create_blog(request):
             post.created_date = timezone.now()
             post.published_date = timezone.now()
             post.save()
-            return redirect('')
+            return redirect('top_page')
     else:
         form = BlogForm()
         return render(request, 'blog/post_edit.html', {'form': form})

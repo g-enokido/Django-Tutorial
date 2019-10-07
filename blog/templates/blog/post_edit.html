@@ -8,6 +8,8 @@
 <div class="content">
     <h2>New post</h2>
     <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
+        <select name=blog_set>{% for blog in blogs %}<option value="{{blog.id}}">{{blog.blog_name}}</option>
+            {%endfor%}{{blog.id}}</select>
         {{ form.as_p }}
         <input type="hidden" name="author_id" value="{{ user.get_id }}">
         <button type="submmit" class="save btn btn-default">投稿する</button>

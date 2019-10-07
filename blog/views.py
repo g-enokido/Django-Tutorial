@@ -10,17 +10,17 @@ from .forms import PostForm
 
 
 def index(request):
-    blogs = Blog.objects.all()
-    posts = Post.objects.filter(
-        published_date__lte=timezone.now()).order_by('created_date').reverse()
-    return render(request, 'blog/index.html', {'articles': posts, 'blogs': blogs})
+    posts = Blog.objects.filter(
+        published_date__lte=timezone.now()).order_by('published_date').reverse()
+    return render(request, 'blog/index.html', {'articles': posts})
 
 
 def post_list(request, pk):
     posts = Post.objects.filter(
         published_date__lte=timezone.now(), blog_id=pk).order_by('created_date').reverse()
+    blog = get_object_or_404(Blog, pk=pk)
 
-    return render(request, 'blog/post_list.html', {'posts': posts, 'blogId': pk})
+    return render(request, 'blog/post_list.html', {'posts': posts, 'blog': blog})
 
 
 def post_detail(request, pk):
@@ -31,18 +31,25 @@ def post_detail(request, pk):
 
 @csrf_protect
 def post_new(request):
+    user = request.user
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
+            blogs = get_object_or_404(Blog, pk=request.POST['blog_set'])
             post = form.save(commit=False)
-            post.author = request.user
+            post.author = user
             post.published_date = timezone.now()
+            post.blog_id = blogs.id
             post.save()
+
+            blogs.published_date = timezone.now()
+            blogs.save()
             return redirect('post_detail', pk=post.pk)
 
     else:
+        blogs = Blog.objects.filter(author_id=user)
         form = PostForm()
-        return render(request, 'blog/post_edit.html', {'form': form})
+        return render(request, 'blog/post_edit.html', {'form': form, 'blogs': blogs})
 
 
 @csrf_protect

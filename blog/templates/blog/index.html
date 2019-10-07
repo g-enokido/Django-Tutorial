@@ -9,17 +9,11 @@
     <title>トップページ</title>
 </head>
 <div class="content">
-    <h2>最近更新のあったページ</h2>
+    <h2>最近更新のあったブログ</h2>
     {% for post in articles %}
     <div class="post">
         <div class="title_box">
-            <h3><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h3>
-        </div>
-        {% if post.image %}
-        <img src="{{ post.image.url }}" />
-        {% endif %}
-        <div class="article_box_index">
-            {{ post.text|linebreaksbr }}
+            <h3><a href="{% url 'post_list' pk=post.id  %}">{{ post.blog_name }}</a></h3>
         </div>
         <div class="date">
             <p>更新日時</p>{{ post.published_date }}

@@ -11,7 +11,7 @@ class Post(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     blog_id = models.IntegerField()
     image = models.ImageField(
-        upload_to='pictures/', null=True, blank=True, default='image.png')
+        upload_to='pictures/', null=True, blank=True)
     published_date = models.DateTimeField(blank=True, null=True)
 
     def publish(self):
