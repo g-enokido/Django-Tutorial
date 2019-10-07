@@ -6,10 +6,15 @@
     <title>{% block title %}記事編集ページ{% endblock%}</title>
 </head>
 <div class="content">
+    {% if detail_flag %}
+    <h2>記事編集</h2>
+    {% else %}
     <h2>新規投稿</h2>
+    {% endif %}
     <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
+        {% if not detail_flag %}
         <select name=blog_set>{% for blog in blogs %}<option value="{{blog.id}}">{{blog.blog_name}}</option>
-            {%endfor%}{{blog.id}}</select>
+            {%endfor%}{{blog.id}}</select>{% endif %}
         {{ form.as_p }}
         <input type="hidden" name="author_id" value="{{ user.get_id }}">
         <button type="submmit" class="save btn btn-default">投稿する</button>

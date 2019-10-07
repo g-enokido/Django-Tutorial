@@ -53,7 +53,7 @@ def post_new(request):
 
             blogs.published_date = timezone.now()
             blogs.save()
-            return redirect('post_detail', pk=post.pk)
+            return redirect('post_list', pk=post.blog_id)
 
     else:
         blogs = Blog.objects.filter(author_id=user)
@@ -80,7 +80,7 @@ def post_edit(request, pk):
 
     else:
         form = PostForm(instance=post)
-        return render(request, 'blog/post_edit.html', {'form': form})
+        return render(request, 'blog/post_edit.html', {'form': form, 'detail_flag': True})
 
 
 def post_login(request):
