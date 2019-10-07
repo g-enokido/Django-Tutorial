@@ -16,6 +16,7 @@ def Comment(request, pk):
             else:
                 post.author = form["author"].value()
             post.article_id = pk
+            post.blog_id = request.session['blog'].id
             post.save()
             return redirect('post_detail', pk=pk)
         return redirect('post_detail', pk=pk)

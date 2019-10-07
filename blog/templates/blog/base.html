@@ -11,14 +11,16 @@
     <div class="top-menu">
 
         {% if user.is_authenticated %}
+        {% if request.session.own_blogs > 0 %}
         <a href="{% url 'post_new' %}" class="menu-item"><span class="glyphicon glyphicon-plus"></span></a>
+        {% endif %}
         <a href="{% url 'blog_settings' %}" class="menu-item">ブログ開設</a>
         <a href="{% url 'logout' %}" class="menu-item">ログアウト</a>
         {% else %}
         <a href="{% url 'login' %}" class="menu-item">ログイン</a>
         <a href="{% url 'signup' %}" class="menu-item">会員登録</a>
         {% endif %}
-        {% if blog is not None %}
+        {% if 'blog' in request.session %}
         <a href="/" class="menu-item">トップに戻る</a>
         {% endif %}
     </div>
@@ -26,13 +28,12 @@
 
 <body>
     <div class="page-header">
-        {% if blog is None %}
+        {% if not 'blog' in request.session %}
         <h1><a href="/">満足日記</a></h1>
         {% else%}
-        <h1><a href="/{{ blog.id }}">{{ blog.blog_name }}</a></h1>
-        <h3>{{ blog.blog_detail }}</h3>
+        <h1><a href="/{{ request.session.blog.id }}">{{ request.session.blog.blog_name }}</a></h1>
+        <h3>{{ request.session.blog.blog_detail }}</h3>
         {% endif %}
-
     </div>
 
     <div class="content container">

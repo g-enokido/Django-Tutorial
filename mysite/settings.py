@@ -126,3 +126,4 @@ LOGIN_REDIRECT_URL = 'top_page'
 LOGOUT_REDIRECT_URL = 'top_page'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
