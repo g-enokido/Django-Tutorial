@@ -54,6 +54,8 @@ def post_new(request):
             post = form.save(commit=False)
             post.author = user
             post.blog_id = blogs.id
+            if request.POST["draft_flag"] == 1:
+                post.published_date = timezone.now()
             post.save()
 
             blogs.published_date = timezone.now()

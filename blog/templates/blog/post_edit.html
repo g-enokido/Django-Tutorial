@@ -12,12 +12,17 @@
         <input type="hidden" name="blog_set" value={{request.session.blog.id}}>
         {% else %}
         <h2>新規投稿</h2>
-        <select name="blog_set">{% for blog in blogs %}<option value="{{blog.id}}">{{blog.blog_name}}</option>
-            {%endfor%}{{blog.id}}</select>
+        <div>
+            <select name="blog_set">{% for blog in blogs %}<option value="{{blog.id}}">{{blog.blog_name}}</option>
+                {%endfor%}{{blog.id}}
+            </select>
+        </div>
+
         {% endif %}
 
         {{ form.as_p }}
         <input type="hidden" name="author_id" value="{{ user.get_id }}">
+        下書きとして保存する:<input type="checkbox" name="draft_flag" value=1 />
         <button type="submmit" class="save btn btn-default">投稿する</button>
     </form>
 </div>
