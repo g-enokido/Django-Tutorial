@@ -99,5 +99,11 @@ def post_publish(request, pk):
     return redirect('post_detail', pk=pk)
 
 
+def post_remove(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.delete()
+    return redirect('post_list', pk=request.session['blog'].id)
+
+
 def post_login(request):
     return render(request, 'blog/post_login.html')
