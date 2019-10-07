@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
 from django.utils import timezone
 from comment.models import Comment
@@ -42,6 +43,7 @@ def post_detail(request, pk):
     return render(request, 'blog/post_detail.html', {'post': post, 'comment': comment})
 
 
+@login_required
 @csrf_protect
 def post_new(request):
     user = request.user
@@ -64,6 +66,7 @@ def post_new(request):
         return render(request, 'blog/post_edit.html', {'form': form, 'blogs': blogs})
 
 
+@login_required
 @csrf_protect
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -86,6 +89,7 @@ def post_edit(request, pk):
         return render(request, 'blog/post_edit.html', {'form': form, 'detail_flag': True})
 
 
+@login_required
 def post_draft_list(request, pk):
     posts = Post.objects.filter(
         published_date__isnull=True, author_id=pk).order_by('created_date')
@@ -93,12 +97,14 @@ def post_draft_list(request, pk):
     return render(request, 'blog/post_draft_list.html', {'posts': posts})
 
 
+@login_required
 def post_publish(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.publish()
     return redirect('post_detail', pk=pk)
 
 
+@login_required
 def post_remove(request, pk):
     post = get_object_or_404(Post, pk=pk)
     post.delete()

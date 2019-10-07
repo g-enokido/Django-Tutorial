@@ -10,7 +10,6 @@ urlpatterns = [
     path('article/<int:pk>/comment/', include('comment.urls')),
     path('create/', views.post_new, name='post_new'),
     path('<int:pk>/edit/', views.post_edit, name='post_edit'),
-    path('login/', include('django.contrib.auth.urls')),
     path('signup/', include('signup.urls')),
     path('post/<int:pk>/remove/', views.post_remove, name='post_remove')
 ]
