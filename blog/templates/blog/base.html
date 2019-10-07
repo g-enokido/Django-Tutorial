@@ -13,6 +13,8 @@
         {% if user.is_authenticated %}
         {% if request.session.own_blogs > 0 %}
         <a href="{% url 'post_new' %}" class="menu-item"><span class="glyphicon glyphicon-plus"></span></a>
+        <a href="{% url 'post_draft_list' pk=user.id %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span>
+        </a>
         {% endif %}
         <a href="{% url 'blog_settings' %}" class="menu-item">ブログ開設</a>
         <a href="{% url 'logout' %}" class="menu-item">ログアウト</a>

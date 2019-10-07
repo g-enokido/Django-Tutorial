@@ -32,9 +32,13 @@ def post_list(request, pk):
 
 
 def post_detail(request, pk):
+    if 'blog' not in request.session:
+        blog_id = get_object_or_404(Post, pk=pk).blog_id
+        request.session['blog'] = get_object_or_404(Blog, pk=blog_id)
     blogId = request.session['blog'].id
     post = get_object_or_404(Post, pk=pk, blog_id=blogId)
     comment = Comment.objects.filter(article_id=pk)
+
     return render(request, 'blog/post_detail.html', {'post': post, 'comment': comment})
 
 
@@ -47,7 +51,6 @@ def post_new(request):
             blogs = get_object_or_404(Blog, pk=request.POST['blog_set'])
             post = form.save(commit=False)
             post.author = user
-            post.published_date = timezone.now()
             post.blog_id = blogs.id
             post.save()
 
@@ -81,6 +84,19 @@ def post_edit(request, pk):
     else:
         form = PostForm(instance=post)
         return render(request, 'blog/post_edit.html', {'form': form, 'detail_flag': True})
+
+
+def post_draft_list(request, pk):
+    posts = Post.objects.filter(
+        published_date__isnull=True, author_id=pk).order_by('created_date')
+
+    return render(request, 'blog/post_draft_list.html', {'posts': posts})
+
+
+def post_publish(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.publish()
+    return redirect('post_detail', pk=pk)
 
 
 def post_login(request):
