@@ -24,4 +24,4 @@ def Create_blog(request):
             return redirect('top_page')
     else:
         form = BlogForm()
-        return render(request, 'blog/post_edit.html', {'form': form})
+        return render(request, 'signup/create_blog.html', {'form': form})

@@ -6,7 +6,7 @@
     <title>{% block title %}記事編集ページ{% endblock%}</title>
 </head>
 <div class="content">
-    <h2>New post</h2>
+    <h2>新規投稿</h2>
     <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
         <select name=blog_set>{% for blog in blogs %}<option value="{{blog.id}}">{{blog.blog_name}}</option>
             {%endfor%}{{blog.id}}</select>
