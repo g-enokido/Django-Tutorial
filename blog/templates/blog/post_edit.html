@@ -5,6 +5,7 @@
 <head>
     <title>{% block title %}記事編集ページ{% endblock%}</title>
 </head>
+
 <div class="content">
     <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
         {% if detail_flag %}
