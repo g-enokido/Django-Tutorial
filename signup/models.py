@@ -6,8 +6,8 @@ from django.utils import timezone
 class Blog(models.Model):
     author = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    blog_name = models.CharField(max_length=200)
-    blog_detail = models.TextField(null=True, blank=True)
+    blog_name = models.CharField(max_length=200, verbose_name='ブログタイトル')
+    blog_detail = models.TextField(null=True, blank=True, verbose_name='ブログ詳細')
     created_date = models.DateTimeField(default=timezone.now)
     published_date = models.DateTimeField(blank=True, null=True)
 
