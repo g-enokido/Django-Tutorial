@@ -29,6 +29,7 @@ def post_list(request, pk):
     blog = get_object_or_404(Blog, pk=pk)
     request.session['blog'] = blog
     category = Category.objects.filter(blog_id=blog.id)
+    request.session['category'] = category
     category.group_by = ['category_id']
 
     return render(request, 'blog/post_list.html', {'posts': posts, 'category': category})
@@ -42,10 +43,20 @@ def post_detail(request, pk):
 
     blogId = request.session['blog'].id
     post = get_object_or_404(Post, pk=pk, blog_id=blogId)
-    category = get_object_or_404(Category, pk=post.category_id, blog_id=blogId)
+    if post.category_id == 0:
+        category = '未分類'
+    else:
+        category = get_object_or_404(
+            Category, pk=post.category_id, blog_id=blogId)
     comment = Comment.objects.filter(article_id=pk)
 
     return render(request, 'blog/post_detail.html', {'post': post, 'comment': comment, 'category': category})
+
+
+def Category_Scope(request, pk):
+    blogId = request.session['blog'].id
+    post = Post.objects.filter(category_id=pk, blog_id=blogId)
+    return render(request, 'blog/post_list.html', {'posts': post})
 
 
 @login_required

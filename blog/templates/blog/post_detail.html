@@ -10,7 +10,7 @@
 
         <div class="title_box">
             <h2>{{ post.title }}</h2>
-            <h4>カテゴリー:{{ category.category_name }}</h4>
+            <h4>カテゴリー:{% if category != '未分類' %}{{ category.category_name }}{% else %}未分類{%endif%}</h4>
         </div>
         <div>
             {% if post.image %}

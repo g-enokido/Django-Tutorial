@@ -33,8 +33,9 @@
 </div>
 <div class='sidebar'>
     <h3>カテゴリー一覧</h3>
-    {% for cate in category %}
-    <p>{{cate.category_name}}</p>
-    {% endfor %}
+    {% for cate in request.session.category %}
+    <a href='{% url "category" pk=cate.id %}'>{{cate.category_name}}</p>
+        {% endfor %}
+        <a href='{% url "category" pk=0 %}'>未分類</p>
 </div>
 {% endblock %}
