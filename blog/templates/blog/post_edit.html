@@ -13,12 +13,19 @@
         <input type="hidden" name="blog_set" value={{request.session.blog.id}}>
         {% else %}
         <h2>新規投稿</h2>
+        <h2>投稿先:{{request.session.target_blog.blog_name}}
+        </h2>
         <div>
-            <select name="blog_set">{% for blog in blogs %}<option value="{{blog.id}}">{{blog.blog_name}}</option>
-                {%endfor%}{{blog.id}}
-            </select>
+
+            カテゴリー名:<input type="text" name="category_name" />
         </div>
 
+        {% endif %}
+        {% if categories.count  > 0%}
+        <select name="category_set">{% for category in categories %}<option value="{{category.id}}">
+                {{category.category_name}}</option>
+            {%endfor%}{{blog.id}}
+        </select>
         {% endif %}
 
         {{ form.as_p }}

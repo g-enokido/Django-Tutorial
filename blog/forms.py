@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post
+from .models import Post, Category
 from django.contrib.auth.forms import AuthenticationForm
 
 
@@ -8,6 +8,12 @@ class PostForm(forms.ModelForm):
         model = Post
         image = forms.ImageField(label='画像ファイル')
         fields = ['title', 'text', 'image']
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ['category_name']
 
 
 class LoginForm(AuthenticationForm):

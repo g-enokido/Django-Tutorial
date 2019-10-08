@@ -10,6 +10,7 @@ class Post(models.Model):
     text = models.TextField(verbose_name='投稿内容')
     created_date = models.DateTimeField(default=timezone.now)
     blog_id = models.IntegerField()
+    category_id = models.IntegerField(default=0)
     image = models.ImageField(
         upload_to='pictures/', null=True, blank=True)
     published_date = models.DateTimeField(blank=True, null=True)

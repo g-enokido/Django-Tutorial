@@ -3,9 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
 from django.utils import timezone
 from comment.models import Comment
-from .models import Post
+from .models import Post, Category
 from signup.models import Blog
-from .forms import PostForm
+from .forms import PostForm, CategoryForm
 
 # Create your views here.
 
@@ -47,27 +47,45 @@ def post_detail(request, pk):
 
 @login_required
 @csrf_protect
-def post_new(request):
-    user = request.user
+def post_new(request, pk):
     if request.method == "POST":
+
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            blogs = get_object_or_404(Blog, pk=request.POST['blog_set'])
+            blogs = get_object_or_404(
+                Blog, pk=request.session['target_blog'].id)
             post = form.save(commit=False)
-            post.author = user
+            post.author = request.user
             post.blog_id = blogs.id
-            if request.POST["draft_flag"] == 1:
-                post.published_date = timezone.now()
-            post.save()
 
+            if request.POST['category_name'] != '':
+                new_category = CategoryForm(request.POST)
+                if new_category.is_valid():
+                    create = new_category.save(commit=False)
+                    create.holder = request.user
+                    create.category_name = request.POST['category_name']
+                    create.blog_id = request.session['target_blog'].id
+                    create.updated_date = timezone.now()
+                    create.save()
+                post.category_id = get_object_or_404(
+                    Category, category_name=request.POST['category_name']).id
+            else:
+                post.category_id = request.POST['category_set']
+
+            if request.POST.get("draft_flag", True):
+                post.published_date = timezone.now()
+
+            post.save()
             blogs.published_date = timezone.now()
             blogs.save()
             return redirect('post_list', pk=post.blog_id)
 
     else:
-        blogs = Blog.objects.filter(author_id=user)
+        categories = Category.objects.filter(blog_id=pk)
+        target_blog = get_object_or_404(Blog, pk=pk)
+        request.session['target_blog'] = target_blog
         form = PostForm()
-        return render(request, 'blog/post_edit.html', {'form': form, 'blogs': blogs})
+        return render(request, 'blog/post_edit.html', {'form': form, 'categories': categories})
 
 
 @login_required

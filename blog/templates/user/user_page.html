@@ -13,7 +13,7 @@
     <div>
         <h3>{{ blogs.blog_name }}</h3>
         {{ blogs.blog_detail }}
-        <a href="{% url 'post_new' %}" class="menu-item"><span class="glyphicon glyphicon-plus"></span></a>
+        <a href="{% url 'post_new' pk=blogs.id %}" class="menu-item"><span class="glyphicon glyphicon-plus"></span></a>
     </div>
     {% endfor %}
 </div>
