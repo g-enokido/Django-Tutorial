@@ -4,12 +4,13 @@
 <head>
     <title>{% block title %}{{ post.title }}{% endblock%}</title>
 </head>
-<div class="content">
+<div class="contents">
     <div class="post">
 
 
         <div class="title_box">
             <h2>{{ post.title }}</h2>
+            <h4>カテゴリー:{{ category.category_name }}</h4>
         </div>
         <div>
             {% if post.image %}
@@ -23,7 +24,7 @@
         {% if post.published_date %}
         <div class="date">
             {{post.published_date}}
-        </div>
+        </div><br>
         {% endif %}
         {% if user.id == post.author_id %}
         {% if not post.published_date %}

@@ -1,6 +1,7 @@
 body {
     padding-left     :15px;
     background-color: #dcd6d9;
+    margin: 0 auto;
 }
 
 .page-header {
@@ -16,7 +17,7 @@ body {
 }
 
 .content {
-    margin-left: 40px;
+    margin-left: 2.5px;
 }
 
 h1, h2, h3, h4 {
@@ -63,7 +64,8 @@ h1, h2, h3, h4 {
     padding:0.25em 0.5em;
     margin:1em 10;
     color:#2c2c2f;
-    max-width:1200px;
+    max-width:900px;
+    width:450px;
     background-color: #cde4ff;
 }
 
@@ -104,14 +106,21 @@ img{
     max-width:100%;
     height:auto;
 }
-.content{
+.contents{
     padding:0.5em 0.1em;
     margin:0.5em 10;
     color:#2c2c2f;
-    background: #FFF;
-    max-width:900px;
+    margin-left: 10px;
+    background-color: #FFF;
+    max-width:560px;
     text-overflow:ellipsis;
+    float: left;
 }
 .images{
     padding:0.25em 0.5em;
+}
+.sidebar{
+    max-width: 300px;
+    float: right;
+    background-color: #cde4ff;
 }

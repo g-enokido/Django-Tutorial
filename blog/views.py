@@ -28,8 +28,10 @@ def post_list(request, pk):
         published_date__lte=timezone.now(), blog_id=pk).order_by('created_date').reverse()
     blog = get_object_or_404(Blog, pk=pk)
     request.session['blog'] = blog
+    category = Category.objects.filter(blog_id=blog.id)
+    category.group_by = ['category_id']
 
-    return render(request, 'blog/post_list.html', {'posts': posts})
+    return render(request, 'blog/post_list.html', {'posts': posts, 'category': category})
 
 
 def post_detail(request, pk):
@@ -40,9 +42,10 @@ def post_detail(request, pk):
 
     blogId = request.session['blog'].id
     post = get_object_or_404(Post, pk=pk, blog_id=blogId)
+    category = get_object_or_404(Category, pk=post.category_id, blog_id=blogId)
     comment = Comment.objects.filter(article_id=pk)
 
-    return render(request, 'blog/post_detail.html', {'post': post, 'comment': comment})
+    return render(request, 'blog/post_detail.html', {'post': post, 'comment': comment, 'category': category})
 
 
 @login_required
