@@ -82,7 +82,8 @@ def post_new(request, pk):
                     create.updated_date = timezone.now()
                     create.save()
                 post.category_id = get_object_or_404(
-                    Category, category_name=request.POST['category_name']).id
+                    Category, category_name=request.POST['category_name'],
+                    blog_id=request.session['target_blog'].id).id
             else:
                 post.category_id = request.POST['category_set']
 
