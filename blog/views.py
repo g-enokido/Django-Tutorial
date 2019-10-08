@@ -35,7 +35,9 @@ def post_list(request, pk):
 def post_detail(request, pk):
     if 'blog' not in request.session:
         blog_id = get_object_or_404(Post, pk=pk).blog_id
-        request.session['blog'] = get_object_or_404(Blog, pk=blog_id)
+        blog_data = get_object_or_404(Blog, pk=blog_id)
+        request.session['blog'] = blog_data
+
     blogId = request.session['blog'].id
     post = get_object_or_404(Post, pk=pk, blog_id=blogId)
     comment = Comment.objects.filter(article_id=pk)

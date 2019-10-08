@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+{% block title %}
+
+{% endblock %}
+{% block content %}
+
+<head>
+    <title>ユーザーページ</title>
+</head>
+<div>
+    <h2>保有しているブログ</h2>
+    {% for blogs in blog %}
+    <div>
+        <h3>{{ blogs.blog_name }}</h3>
+        {{ blogs.blog_detail }}
+        <a href="{% url 'post_new' %}" class="menu-item"><span class="glyphicon glyphicon-plus"></span></a>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
