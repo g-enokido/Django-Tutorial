@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'signup',
     'comment',
+    'user',
 ]
 
 MIDDLEWARE = [
@@ -127,3 +128,4 @@ LOGOUT_REDIRECT_URL = 'top_page'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+AUTH_USER_MODEL = 'user.User'
