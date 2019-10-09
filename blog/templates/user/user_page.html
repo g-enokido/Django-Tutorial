@@ -8,6 +8,9 @@
     <title>ユーザーページ</title>
 </head>
 <div>
+    <a href="{% url 'show_user' pk=request.user.id %}">ユーザー情報紹介</a>
+</div>
+<div>
     <h2>保有しているブログ</h2>
     {% for blogs in blog %}
     <div>
