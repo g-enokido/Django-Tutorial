@@ -8,26 +8,24 @@
 <div class="contents">
     {% for post in posts %}
     <div class="post">
-        <div class="title_box">
+        <article>
             <h3>{{ post.title }}</h3>
-        </div>
-        <div class="images">
-            {% if post.image %}
-            <img src="{{ post.image.url }}" />
-            {% endif %}
-        </div>
-        <div class="article_box_index">
+            <div class="images">
+                {% if post.image %}
+                <img src="{{ post.image.url }}" />
+                {% endif %}
+            </div>
+            <p>
 
-            {{ post.text|linebreaksbr }}
-        </div>
-        <a href="{% url 'post_detail' pk=post.pk %}">続きを読む</a>
-        <div class="date">
-            <p>更新日時</p>{{ post.published_date }}
-        </div>
-
+                {{ post.text|linebreaksbr }}
+            </p>
+            <a href="{% url 'post_detail' pk=post.pk %}" class="property_button">続きを読む</a>
+            <span class="date">
+                <p>更新日時</p>{{ post.published_date }}
+            </span>
+        </article>
 
     </div>
-    <hr>
     {% endfor %}
 
 </div>
@@ -36,6 +34,5 @@
     {% for cate in request.session.category %}
     <a href='{% url "category" pk=cate.id %}'>{{cate.category_name}}</p>
         {% endfor %}
-        <a href='{% url "category" pk=0 %}'>未分類</p>
 </div>
 {% endblock %}

@@ -1,6 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 
 <head>
     <meta http-equiv="content-type" charset="utf-8">
@@ -8,23 +8,25 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
     <link rel='stylesheet' type='text/css' 　href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext'>
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <div class="top-menu">
-
-        {% if user.is_authenticated %}
-        {% if request.session.own_blogs > 0 %}
-        <a href="{% url 'post_draft_list' pk=user.id %}" class="top-menu"><span class="glyphicon glyphicon-edit"></span>
-        </a>
-        <a href="{% url 'user_page' pk=request.user.id %}" class="menu-item">ユーザーページ</a>
-        {% endif %}
-        <a href="{% url 'blog_settings' %}" class="menu-item">ブログ開設</a>
-        <a href="{% url 'logout' %}" class="menu-item">ログアウト</a>
-        {% else %}
-        <a href="{% url 'login' %}" class="menu-item">ログイン</a>
-        <a href="{% url 'signup' %}" class="menu-item">会員登録</a>
-        {% endif %}
-        {% if 'blog' in request.session %}
-        <a href="/" class="menu-item">トップに戻る</a>
-        {% endif %}
+        <nav>
+            {% if user.is_authenticated %}
+            {% if request.session.own_blogs > 0 %}
+            <a href="{% url 'post_draft_list' pk=user.id %}" class="menu-item">下書き一覧
+            </a>
+            <a href="{% url 'user_page' pk=request.user.id %}" class="menu-item">ユーザーページ</a>
+            {% endif %}
+            <a href="{% url 'blog_settings' %}" class="menu-item">ブログ開設</a>
+            <a href="{% url 'logout' %}" class="menu-item">ログアウト</a>
+            {% else %}
+            <a href="{% url 'login' %}" class="menu-item">ログイン</a>
+            <a href="{% url 'signup' %}" class="menu-item">会員登録</a>
+            {% endif %}
+            {% if 'blog' in request.session %}
+            <a href="/" class="menu-item">トップに戻る</a>
+            {% endif %}
+        </nav>
     </div>
 </head>
 
@@ -37,15 +39,9 @@
         <h3>{{ request.session.blog.blog_detail }}</h3>
         {% endif %}
     </div>
+    {% block content %}
+    {% endblock %}
 
-    <div class="content container">
-        <div class="row">
-            <div class="col-md-8">
-                {% block content %}
-                {% endblock %}
-            </div>
-        </div>
-    </div>
 </body>
 
 </html>
