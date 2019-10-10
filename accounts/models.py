@@ -18,7 +18,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         error_messages={'unique': _("そのユーザー名はすでに使用されています"), },)
 
     email = models.EmailField(
-        _('email address'), blank=True,)
+        _('email address'), unique=True,)
 
     profile_icon = models.ImageField(
         _('profile icon'), upload_to='profile_icons', null=True, blank=True, )
@@ -38,8 +38,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     EMAIL_FIELD = 'email'
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email']
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
     class Meta:
         verbose_name = _('user')
