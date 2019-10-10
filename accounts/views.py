@@ -12,22 +12,26 @@ from .models import Blog, CustomUser
 class CreateUser(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
-    template_name = 'signup/signup.html'
+    template_name = 'accounts/signup.html'
 
 
 class Account_login(CreateView):
     def post(self, request, *arg, **kwargs):
         form = LoginForm(data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('username')
-            user = CustomUser.objects.get(username=username)
+            email = form.cleaned_data.get('username')
+            try:
+                user = CustomUser.objects.get(email=email)
+            except CustomUser.DoesNotExist:
+                return render(request, 'registration/login.html', {'form': form, })
+
             login(request, user)
             return redirect('/')
-        return render(request, 'accounts/login.html', {'form': form, })
+        return render(request, 'registration/login.html', {'form': form, })
 
     def get(self, request, *args, **kwargs):
         form = LoginForm(request.POST)
-        return render(request, 'accounts/login.html', {'form': form, })
+        return render(request, 'registration/login.html', {'form': form, })
 
 
 def Create_blog(request):
