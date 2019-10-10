@@ -2,16 +2,32 @@ from accounts.forms import CustomUserCreationForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.utils import timezone
-from .forms import BlogForm
 from django.shortcuts import render, redirect
-from accounts.models import Blog
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login
+from .forms import BlogForm, LoginForm
+from .models import Blog, CustomUser
 
 
-class SignUpView(CreateView):
+class CreateUser(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy('login')
     template_name = 'signup/signup.html'
+
+
+class Account_login(CreateView):
+    def post(self, request, *arg, **kwargs):
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            user = CustomUser.objects.get(username=username)
+            login(request, user)
+            return redirect('/')
+        return render(request, 'accounts/login.html', {'form': form, })
+
+    def get(self, request, *args, **kwargs):
+        form = LoginForm(request.POST)
+        return render(request, 'accounts/login.html', {'form': form, })
 
 
 def Create_blog(request):
@@ -26,7 +42,7 @@ def Create_blog(request):
             return redirect('top_page')
     else:
         form = BlogForm()
-        return render(request, 'signup/create_blog.html', {'form': form})
+        return render(request, 'accounts/signup/create_blog.html', {'form': form})
 
 
 # Create your views here.
@@ -35,10 +51,10 @@ def Create_blog(request):
 @login_required
 def ShowsUserPage(request, pk):
     blogs = Blog.objects.filter(author_id=pk)
-    return render(request, 'user/user_page.html', {'blog': blogs})
+    return render(request, 'accounts/user_page.html', {'blog': blogs})
 
 
 @login_required
 def GetUserData(request, pk):
     blogs = Blog.objects.filter(author_id=pk)
-    return render(request, 'user/user_page.html', {'blog': blogs})
+    return render(request, 'accounts/user_page.html', {'blog': blogs})

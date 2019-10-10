@@ -1,7 +1,13 @@
 from django.urls import path
-from .views import SignUpView
 from . import views
-urlpatterns = [path('new/', SignUpView.as_view(), name='signup'),
+from django.contrib.auth import views as authviews
+
+
+urlpatterns = [path('new/', views.CreateUser.as_view(), name='signup'),
                path('settings/', views.Create_blog, name='blog_settings'),
                path('<int:pk>/', views.ShowsUserPage, name="user_page"),
-               path('show/<int:pk>/', views.ShowsUserPage, name='show_user'), ]
+               path('show/<int:pk>/', views.ShowsUserPage, name='show_user'),
+               path('accounts/login/', views.Account_login.as_view(), name='login'),
+               path('accounts/logout/',
+                    authviews.LogoutView.as_view(next_page='/'), name='logout'),
+               ]
