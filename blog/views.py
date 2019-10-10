@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.utils import timezone
 from comment.models import Comment
 from .models import Post, Category
-from signup.models import Blog
+from accounts.models import Blog
 from .forms import PostForm, CategoryForm
 
 # Create your views here.
