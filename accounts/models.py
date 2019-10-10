@@ -2,13 +2,14 @@ from django.db import models
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin, UserManager
 from django.contrib.auth.validators import ASCIIUsernameValidator
+from django.conf import settings
 from django.core.mail import send_mail
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 # Create your models here.
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class CustomUser(AbstractBaseUser, PermissionsMixin):
     username_validator = ASCIIUsernameValidator
     username = models.CharField(
         _('username'), max_length=150,
@@ -51,3 +52,19 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def email_user(self, subject, message, from_email=None, **kwargs):
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+
+class Blog(models.Model):
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    blog_name = models.CharField(max_length=200, verbose_name='ブログタイトル')
+    blog_detail = models.TextField(null=True, blank=True, verbose_name='ブログ詳細')
+    created_date = models.DateTimeField(default=timezone.now)
+    published_date = models.DateTimeField(blank=True, null=True)
+
+    def publish(self):
+        self.published_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.blog_name
