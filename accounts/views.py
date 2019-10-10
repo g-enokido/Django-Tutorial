@@ -46,7 +46,7 @@ def Create_blog(request):
             return redirect('top_page')
     else:
         form = BlogForm()
-        return render(request, 'accounts/signup/create_blog.html', {'form': form})
+        return render(request, 'accounts/create_blog.html', {'form': form})
 
 
 # Create your views here.
