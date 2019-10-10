@@ -72,7 +72,8 @@ def post_new(request, pk):
             post.author = request.user
             post.blog_id = blogs.id
 
-            if request.POST['category_name'] != '':
+            if request.POST['category_name'] != ''and Category.objects.filter(
+                    category_name=request.POST['category_name'], blog_id=blogs.id).count() == 0:
                 new_category = CategoryForm(request.POST)
                 if new_category.is_valid():
                     create = new_category.save(commit=False)
@@ -85,9 +86,13 @@ def post_new(request, pk):
                     Category, category_name=request.POST['category_name'],
                     blog_id=request.session['target_blog'].id).id
             else:
-                post.category_id = request.POST['category_set']
+                if request.POST['category_name'] != '':
+                    post.category_id = get_object_or_404(
+                        Category, category_name=request.POST['category_name'], blog_id=blogs.id).id
+                else:
+                    post.category_id = request.POST['category_set']
 
-            if request.POST.get("draft_flag", True):
+            if 'draft_flag'not in request.POST:
                 post.published_date = timezone.now()
 
             post.save()

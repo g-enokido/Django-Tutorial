@@ -30,7 +30,7 @@
 
         {{ form.as_p }}
         <input type="hidden" name="author_id" value="{{ user.get_id }}">
-        下書きとして保存する:<input type="checkbox" name="draft_flag" value=1 />
+        下書きとして保存する:<input type="checkbox" name="draft_flag" value="False" />
         <button type="submmit" class="save btn btn-default">投稿する</button>
     </form>
 </div>
