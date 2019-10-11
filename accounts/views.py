@@ -60,5 +60,5 @@ def ShowsUserPage(request, pk):
 
 @login_required
 def GetUserData(request, pk):
-    blogs = Blog.objects.filter(author_id=pk)
-    return render(request, 'accounts/user_page.html', {'blog': blogs})
+    user = CustomUser.objects.filter(id=pk)
+    return render(request, 'accounts/show_data.html', {'userdata': user})

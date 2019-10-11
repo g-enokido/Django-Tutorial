@@ -9,4 +9,18 @@
 <head>
     <title>ユーザー情報照会ページ</title>
 </head>
+
+<body>
+    <div class="contents">
+        <article>
+            <h3>ユーザー情報</h3>
+            {% if post.image %}
+            <img src="{{request.user.image.url }}" />
+            {% endif %}
+            <p>ユーザー名:{{request.user.username}}</p>
+            <p>自己紹介:{{request.user.self_introduction|linebreaksbr}}</p>
+        </article>
+    </div>
+    <a href="{{url 'user_edit' pk=request.user.id}}">編集する</a>
+</body>
 {% endblock %}

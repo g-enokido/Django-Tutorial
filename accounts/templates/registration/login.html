@@ -9,6 +9,7 @@
 </head>
 
 <body>
+<<<<<<< HEAD
     {% if form.errors  %}
     <p>ユーザーID, パスワードが一致しません．</p>
     {% endif %}
@@ -18,5 +19,18 @@
         {{ form.as_p }}
         <button type="submit">ログイン</button>
     </form>
+=======
+    <div class="contents">
+        {% if form.errors  %}
+        <p>ユーザーID, パスワードが一致しません．</p>
+        {% endif %}
+        <form method="POST" action="{% url 'login' %}">
+            {% csrf_token %}
+            <label>ユーザーID</label>
+            {{ form.as_p }}
+            <button type="submit">ログイン</button>
+        </form>
+    </div>
+>>>>>>> master
 </body>
 {% endblock %}
