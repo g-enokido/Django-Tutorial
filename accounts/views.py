@@ -1,8 +1,8 @@
-from accounts.forms import CustomUserCreationForm
+from accounts.forms import CustomUserCreationForm, CustomUserChangeForm
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 from django.utils import timezone
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login
 from .forms import BlogForm, LoginForm
@@ -59,6 +59,22 @@ def ShowsUserPage(request, pk):
 
 
 @login_required
+def ChangeUserData(request, pk):
+    if request.method == "POST":
+        user = get_object_or_404(CustomUser, id=pk)
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=user)
+        form.password = user.password
+
+        change_data = form.save(commit=False)
+        change_data.save()
+        return redirect('show_user', pk=user.pk)
+
+    else:
+        user = get_object_or_404(CustomUser, id=pk)
+        form = CustomUserChangeForm()
+        return render(request, 'accounts/user_customize.html', {'form': form, 'user': user})
+
+
 def GetUserData(request, pk):
-    user = CustomUser.objects.filter(id=pk)
+    user = get_object_or_404(CustomUser, id=pk)
     return render(request, 'accounts/show_data.html', {'userdata': user})

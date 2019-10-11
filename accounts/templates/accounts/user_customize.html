@@ -1,0 +1,20 @@
+{% extends "blog/base.html" %}
+{% block title %}
+
+{% endblock %}
+{% block content %}
+
+<head>
+    <title>会員情報変更</title>
+</head>
+
+<body>
+    <div class="contents">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'user_cutomize' pk=request.user.id %}">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submmit" class="button">変更する。</button>
+        </form>
+    </div>
+</body>
+{% endblock %}

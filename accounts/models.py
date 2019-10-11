@@ -21,10 +21,10 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         _('email address'), unique=True,)
 
     profile_icon = models.ImageField(
-        _('profile icon'), upload_to='profile_icons', null=True, blank=True, )
+        verbose_name='アイコン', upload_to='profile_icons/', null=True, blank=True, )
 
     self_introduction = models.CharField(
-        _('self introduction'), max_length=512, blank=True, )
+        verbose_name='自己紹介', max_length=512, blank=True, )
 
     is_admin = models.BooleanField(default=True)
     is_staff = models.BooleanField(
