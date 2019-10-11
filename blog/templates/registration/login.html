@@ -1,15 +1,28 @@
 {% extends "blog/base.html" %}
 {% block title %}
-<title>ログインページ</title>
+
+
 {% endblock %}
 {% block content %}
 
+
+<head>
+    <title>ログイン</title>
+</head>
+
 <body>
-    <h1>ログインページ</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <div><button type="submit" value="login"">ログイン</div>
-    </form>
+    <div class="contents">
+        <article>
+            {% if form.errors  %}
+            <p>ユーザーID, パスワードが一致しません．</p>
+            {% endif %}
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <h3>ログイン</h3>
+                {{ form.as_p }}
+                <button type="submit">ログイン</button>
+            </form>
+        </article>
+    </div>
 </body>
 {% endblock %}
