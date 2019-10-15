@@ -17,6 +17,7 @@
         <article>
             <h3>{{ blogs.blog_name }}</h3>
             <div>{{ blogs.blog_detail }}</div>
+            <hr>
             <a href="{% url 'post_new' pk=blogs.id %}" class="menu-item"><span
                     class="glyphicon glyphicon-plus"></span></a>
             <a href="{% url 'blog_delete' pk=blogs.id %}" class="menu-item">削除する</a>
@@ -33,6 +34,9 @@
 
 </div>
 <div class="sidebar">
-    <a href="{% url 'show_user' pk=request.user.id %}">ユーザー情報照会</a>
+    <ul>
+        <li><a href="{% url 'show_user' pk=request.user.id %}">ユーザー情報照会</a></li>
+        <li><a href="{% url 'show_user' pk=request.user.id %}">退会する</a></li>
+    </ul>
 </div>
 {% endblock %}

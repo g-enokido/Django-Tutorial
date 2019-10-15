@@ -61,7 +61,7 @@ h1, h2, h3, h4 {
     text-decoration: none;
     color:inherit;
     width: calc(20% - 2px); /*横幅の指定（線の分をマイナスする）*/
-    border-left: 1px solid orange;  /*線を描く*/
+    border-right: 1px solid orange;  /*線を描く*/
     text-align: center; /*文字を中央に*/
     float: left;    /*左から並べる*/
 }
