@@ -6,6 +6,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from stdimage import StdImageField
 # Create your models here.
 
 
@@ -20,8 +21,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         _('email address'), unique=True,)
 
-    profile_icon = models.ImageField(
-        verbose_name='アイコン', upload_to='profile_icons/', null=True, blank=True, )
+    profile_icon = StdImageField(
+        verbose_name='アイコン', upload_to='profile_icons/', null=True, blank=True, variations={
+            'large': (600, 400),
+            'thumbnail': (100, 100, True),
+            'medium': (300, 200),
+        })
 
     self_introduction = models.CharField(
         verbose_name='自己紹介', max_length=512, blank=True, )

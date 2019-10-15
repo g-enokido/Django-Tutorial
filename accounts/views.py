@@ -65,9 +65,12 @@ def ChangeUserData(request, pk):
         form = CustomUserChangeForm(request.POST, request.FILES, instance=user)
         form.password = user.password
 
-        change_data = form.save(commit=False)
-        change_data.save()
-        return redirect('show_user', pk=user.pk)
+        if form.is_valid():
+            change_data = form.save(commit=False)
+            change_data.save()
+            return redirect('show_user', pk=user.pk)
+        else:
+            return render(request, 'accounts/user_customize.html', {'form': form, 'user': user})
 
     else:
         user = get_object_or_404(CustomUser, id=pk)
