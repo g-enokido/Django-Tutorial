@@ -15,6 +15,7 @@
         <div class="title_box">
             <h3><a href="{% url 'post_list' pk=post.id  %}">{{ post.blog_name }}</a></h3>
         </div>
+        <p>{{ post.blog_detail}}</p>
         <div class="date">
             <p>更新日時</p>{{ post.published_date }}
         </div>

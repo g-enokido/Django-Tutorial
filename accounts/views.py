@@ -55,7 +55,8 @@ def Create_blog(request):
 @login_required
 def ShowsUserPage(request, pk):
     blogs = Blog.objects.filter(author_id=pk)
-    return render(request, 'accounts/user_page.html', {'blog': blogs})
+    blogs_deal = blogs.count()
+    return render(request, 'accounts/user_page.html', {'blog': blogs, 'blogs_deal': blogs_deal})
 
 
 @login_required
@@ -81,3 +82,10 @@ def ChangeUserData(request, pk):
 def GetUserData(request, pk):
     user = get_object_or_404(CustomUser, id=pk)
     return render(request, 'accounts/show_data.html', {'userdata': user})
+
+
+@login_required
+def Delete_blog(request, pk):
+    blog = get_object_or_404(Blog, pk=pk)
+    blog.delete()
+    return redirect('user_page', pk=request.user.id)

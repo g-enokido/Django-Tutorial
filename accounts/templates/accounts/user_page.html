@@ -9,20 +9,30 @@
 </head>
 
 <div class="contents">
-    <div>
-        <a href="{% url 'show_user' pk=request.user.id %}">ユーザー情報紹介</a>
-    </div>
-    <h2>保有しているブログ</h2>
 
+    <h2>保有しているブログ</h2>
+    {%if blogs_deal > 0%}
     {% for blogs in blog %}
     <div class="post">
         <article>
             <h3>{{ blogs.blog_name }}</h3>
-            {{ blogs.blog_detail }}
+            <div>{{ blogs.blog_detail }}</div>
             <a href="{% url 'post_new' pk=blogs.id %}" class="menu-item"><span
                     class="glyphicon glyphicon-plus"></span></a>
+            <a href="{% url 'blog_delete' pk=blogs.id %}" class="menu-item">削除する</a>
         </article>
     </div>
     {% endfor %}
+    {% else %}
+    <article>
+        <p>現在保有しているブログはありません。</p>
+        <a href="{% url 'blog_settings' %}" class="menu-item">ブログを開設する</a>
+    </article>
+    {% endif %}
+
+
+</div>
+<div class="sidebar">
+    <a href="{% url 'show_user' pk=request.user.id %}">ユーザー情報照会</a>
 </div>
 {% endblock %}
