@@ -24,8 +24,8 @@ class Account_login(CreateView):
                 user = CustomUser.objects.get(email=email)
             except CustomUser.DoesNotExist:
                 return render(request, 'registration/login.html', {'form': form, })
-
-            login(request, user)
+            if user.is_active:
+                login(request, user)
             return redirect('/')
         return render(request, 'registration/login.html', {'form': form, })
 
@@ -89,3 +89,9 @@ def Delete_blog(request, pk):
     blog = get_object_or_404(Blog, pk=pk)
     blog.delete()
     return redirect('user_page', pk=request.user.id)
+
+
+@login_required
+def Reject_user(request, pk):
+    CustomUser.objects.filter(id=pk).update(is_active=False)
+    return redirect('top_page')

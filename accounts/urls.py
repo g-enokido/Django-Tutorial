@@ -16,4 +16,6 @@ urlpatterns = [path('new/', views.CreateUser.as_view(), name='signup'),
                path('login/', views.Account_login.as_view(), name='login'),
                path('logout/',
                     authviews.LogoutView.as_view(next_page='/'), name='logout'),
+               path('reject/<int:pk>',
+                    views.Reject_user, name='reject'),
                ]
