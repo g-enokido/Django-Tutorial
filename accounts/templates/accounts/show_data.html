@@ -20,7 +20,7 @@
         <p>ユーザー名:{{request.user.username}}</p>
         <p>自己紹介:{{request.user.self_introduction|linebreaksbr}}</p>
     </article>
-    <div class="sidebar"><a href="{% url 'user_cutomize' pk=request.user.id %}">ユーザー情報編集</a></div>
+    <div class="sidebar"><a href="{% url 'user_cutomize'  %}">ユーザー情報編集</a></div>
 
 </body>
 {% endblock %}

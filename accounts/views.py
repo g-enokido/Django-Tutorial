@@ -60,35 +60,36 @@ def ShowsUserPage(request):
 
 
 @login_required
-def ChangeUserData(request, pk):
+def ChangeUserData(request):
     if request.method == "POST":
-        user = get_object_or_404(CustomUser, id=pk)
+        user = get_object_or_404(CustomUser, id=request.user.id)
         form = CustomUserChangeForm(request.POST, request.FILES, instance=user)
         form.password = user.password
 
         if form.is_valid():
             change_data = form.save(commit=False)
             change_data.save()
-            return redirect('show_user', pk=request.user.id)
+            return redirect('show_user')
         else:
             return render(request, 'accounts/user_customize.html', {'form': form, 'user': user})
 
     else:
-        user = get_object_or_404(CustomUser, id=pk)
+        user = get_object_or_404(CustomUser, id=request.user.id)
         form = CustomUserChangeForm()
         return render(request, 'accounts/user_customize.html', {'form': form, 'user': user})
 
 
-def GetUserData(request, pk):
-    user = get_object_or_404(CustomUser, id=pk)
+def GetUserData(request):
+    user = get_object_or_404(CustomUser, id=request.user.id)
     return render(request, 'accounts/show_data.html', {'userdata': user})
 
 
 @login_required
 def Delete_blog(request, pk):
     blog = get_object_or_404(Blog, pk=pk)
-    blog.delete()
-    return redirect('user_page', pk=request.user.id)
+    if blog. author_id == request.user.id:
+        blog.delete()
+    return redirect('user_page')
 
 
 @login_required
