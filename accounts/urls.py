@@ -5,7 +5,7 @@ from django.contrib.auth import views as authviews
 
 urlpatterns = [path('new/', views.CreateUser.as_view(), name='signup'),
                path('settings/', views.Create_blog, name='blog_settings'),
-               path('profile/<int:pk>/', views.ShowsUserPage, name="user_page"),
+               path('profile/', views.ShowsUserPage, name="user_page"),
 
                path('profile/edit/<int:pk>/', views.ChangeUserData,
                     name="user_cutomize"),

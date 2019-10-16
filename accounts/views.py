@@ -26,7 +26,7 @@ class Account_login(CreateView):
                 return render(request, 'registration/login.html', {'form': form, })
             if user.is_active:
                 login(request, user)
-            return redirect('/')
+                return redirect('user_page')
         return render(request, 'registration/login.html', {'form': form, })
 
     def get(self, request, *args, **kwargs):
@@ -53,8 +53,8 @@ def Create_blog(request):
 
 
 @login_required
-def ShowsUserPage(request, pk):
-    blogs = Blog.objects.filter(author_id=pk)
+def ShowsUserPage(request):
+    blogs = Blog.objects.filter(author_id=request.user.id)
     blogs_deal = blogs.count()
     return render(request, 'accounts/user_page.html', {'blog': blogs, 'blogs_deal': blogs_deal})
 
@@ -69,7 +69,7 @@ def ChangeUserData(request, pk):
         if form.is_valid():
             change_data = form.save(commit=False)
             change_data.save()
-            return redirect('show_user', pk=user.pk)
+            return redirect('show_user', pk=request.user.id)
         else:
             return render(request, 'accounts/user_customize.html', {'form': form, 'user': user})
 

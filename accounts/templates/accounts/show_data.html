@@ -11,17 +11,15 @@
 </head>
 
 <body>
-    <div class="contents">
 
-        <article>
-            <h3>ユーザー情報</h3>
-            {% if request.user.profile_icon %}
-            <img src="{{request.user.profile_icon.thumbnail.url }}" />
-            {% endif %}
-            <p>ユーザー名:{{request.user.username}}</p>
-            <p>自己紹介:{{request.user.self_introduction|linebreaksbr}}</p>
-        </article>
-    </div>
+    <article>
+        <h3>ユーザー情報</h3>
+        {% if request.user.profile_icon %}
+        <img src="{{request.user.profile_icon.thumbnail.url }}" />
+        {% endif %}
+        <p>ユーザー名:{{request.user.username}}</p>
+        <p>自己紹介:{{request.user.self_introduction|linebreaksbr}}</p>
+    </article>
     <div class="sidebar"><a href="{% url 'user_cutomize' pk=request.user.id %}">ユーザー情報編集</a></div>
 
 </body>

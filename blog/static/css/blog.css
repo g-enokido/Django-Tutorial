@@ -142,7 +142,7 @@ img{
     margin-left: 15%;
     color:#2c2c2f;
     background-color: #FFF;
-    max-width:560px;
+    max-width:760px;
     text-overflow:ellipsis;
     float: left;
 }
@@ -154,7 +154,7 @@ img{
     max-width:360px;
     margin-left: 40%;
     padding:0.5em;
-    margin:1em 10;
+    margin:1em 20;
     border: 1px solid orange;   /*線を描く*/
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
@@ -191,7 +191,9 @@ img{
 article{
     width: 100%;
     padding: 3%;  /*余白の指定*/
+    margin-left: 10%;
     margin-bottom: 50px;
+    max-width:650px;
     background-color: #f9f9f9;  /*背景色の指定*/
     overflow: hidden;   /*おまじない*/
     float: left;    /*フロートする*/
