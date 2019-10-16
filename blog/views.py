@@ -132,9 +132,9 @@ def post_edit(request, pk):
 
 
 @login_required
-def post_draft_list(request, pk):
+def post_draft_list(request):
     posts = Post.objects.filter(
-        published_date__isnull=True, author_id=pk).order_by('created_date')
+        published_date__isnull=True, author_id=request.user.id).order_by('created_date')
 
     return render(request, 'blog/post_draft_list.html', {'posts': posts})
 

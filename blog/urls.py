@@ -5,7 +5,7 @@ urlpatterns = [
     path('', views.index, name='top_page'),
     path('signup/', include('accounts.urls')),
     path('userpage/', include('accounts.urls')),
-    path('drafts/<int:pk>', views.post_draft_list, name='post_draft_list'),
+    path('drafts/', views.post_draft_list, name='post_draft_list'),
     path('create/<int:pk>/', views.post_new, name='post_new'),
     path('category/<int:pk>', views.Category_Scope, name="category"),
     path('post/<int:pk>/publish/', views.post_publish, name='post_publish'),
