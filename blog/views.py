@@ -12,7 +12,8 @@ from .forms import PostForm, CategoryForm
 
 def index(request):
     posts = Blog.objects.filter(
-        published_date__lte=timezone.now()).order_by('published_date').reverse()[:5]
+        published_date__lte=timezone.now()).order_by('published_date').reverse().select_related(
+        "Post").count() > 0[:5]
 
     if 'blog' in request.session:
         del request.session['blog']
