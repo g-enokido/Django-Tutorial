@@ -10,9 +10,11 @@
 
 <body>
     <article>
-        <form method="POST" enctype="multipart/form-data" action="{% url 'user_cutomize' pk=request.user.id %}">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'user_cutomize'  %}">
             {% csrf_token %}
-            {{form.as_p}}
+            <table>
+                {{form.as_table}}
+            </table>
             <button type="submmit" class="button">変更する</button>
         </form>
     </article>

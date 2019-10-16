@@ -75,8 +75,10 @@ def ChangeUserData(request):
 
     else:
         user = get_object_or_404(CustomUser, id=request.user.id)
-        form = CustomUserChangeForm()
-        return render(request, 'accounts/user_customize.html', {'form': form, 'user': user})
+        form = CustomUserChangeForm(initial={
+                                    'username': user.username, 'profile_icon': user.profile_icon,
+                                    'self_introduction': user.self_introduction})
+        return render(request, 'accounts/user_customize.html', {'form': form})
 
 
 def GetUserData(request):

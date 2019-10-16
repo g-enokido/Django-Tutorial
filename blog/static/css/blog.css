@@ -72,7 +72,7 @@ h1, h2, h3, h4 {
 
 .menu-item:hover{
     background-color: #fff; /*背景色の指定*/
-    border: 1px solid orange;   /*線を描く*/
+
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
     transition: all 0.5s;   /*ホバー時の変化をなめらかに*/
@@ -146,10 +146,9 @@ img{
 }
 .sidebar{
 
-    max-width:360px;
-    margin-left: 40%;
+    max-width:15%;
     padding:0.5em;
-    margin:1em 20;
+    margin-right:15%;
     border: 1px solid orange;   /*線を描く*/
     -webkit-transition: all 0.5s;
     -moz-transition: all 0.5s;
@@ -157,6 +156,7 @@ img{
     color: orange;  /*文字色の指定*/
     overflow: hidden;   /*おまじない*/
     background-color: #FFF;
+    float:right;
 }
 
 .property_button{
@@ -184,11 +184,10 @@ img{
 }
 
 article{
-    width: 100%;
+    width: 60%;
     padding: 3%;  /*余白の指定*/
     margin-left: 10%;
     margin-bottom: 50px;
-    max-width:650px;
     background-color: #f9f9f9;  /*背景色の指定*/
     overflow: hidden;   /*おまじない*/
     float: left;    /*フロートする*/

@@ -11,7 +11,10 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ['username', 'email', ]
 
 
-class CustomUserChangeForm(forms.ModelForm):
+class CustomUserChangeForm(forms.ModelForm, forms.Form):
+    self_introduction = forms.CharField(
+        label='自己紹介', widget=forms.Textarea)
+
     class Meta:
         model = CustomUser
         profile_icon = forms.ImageField(label='アイコン')
