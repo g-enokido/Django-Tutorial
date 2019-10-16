@@ -4,61 +4,56 @@
 <head>
     <title>{% block title %}{{ post.title }}{% endblock%}</title>
 </head>
-<div class="contents">
-    <div class="post">
-
-
-        <div class="title_box">
-            <h2>{{ post.title }}</h2>
-            <h4>カテゴリー:{% if category != '未分類' %}{{ category.category_name }}{% else %}未分類{%endif%}</h4>
-        </div>
-        <div>
-            {% if post.image %}
-            <img src="{{ post.image.url }}" />
-            {% endif %}
-        </div>
-        <div class="article_box">
-            <p>{{ post.text|linebreaksbr }}</p>
-        </div>
-
-        {% if post.published_date %}
-        <div class="date">
-            {{post.published_date}}
-        </div><br>
+<article>
+    <h3>{{ post.title }}</h3>
+    <h4>カテゴリー:{% if category != '未分類' %}{{ category.category_name }}{% else %}未分類{%endif%}</h4>
+    <div>
+        {% if post.image %}
+        <img src="{{ post.image.url }}" />
         {% endif %}
-        {% if user.id == post.author_id %}
-        {% if not post.published_date %}
-        <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">掲載する</a>
-        {% else %}
-        <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span　class="glyphicon
-                glyphicon-pencil"></span>編集する</a>
-        <a class="btn btn-default" href="{%url 'post_remove' pk=post.pk%}"><span
-                class="glyphicon glyphicon-remove"></span></a>
-        {% endif %}
-        {% endif %}
-        <hr>
-        <h4>コメント欄</h4>
-        <form method="POST" class="commentForm" action='comment/submission/'>{% csrf_token %}
-            <input type="hidden" name='article_id' value=pk>
-            <div>
-                名前：
-
-                <input type="text" name="author" value={% if user.is_authenticated %}{{ user.get_username }}
-                    {% else %}"名無しさん"{% endif %}>
-
-
-            </div>
-            <div>
-                <p>コメント</p><textarea name="text"></textarea>
-            </div>
-            <button type="submit">投稿</button>
-        </form>
-        {% for comments in comment %}
-        <hr>
-        <div>投稿者：{{ comments.author }}</div>
-        <div>
-            <p>コメント</p>{{ comments.text }}
-        </div>
-        {% endfor %}
     </div>
-    {% endblock %}
+    <div class="article_box">
+        <p>{{ post.text|linebreaksbr }}</p>
+    </div>
+
+    {% if post.published_date %}
+    <div class="date">
+        {{post.published_date}}
+    </div><br>
+    {% endif %}
+    {% if user.id == post.author_id %}
+    {% if not post.published_date %}
+    <a class="btn btn-default" href="{% url 'post_publish' pk=post.pk %}">掲載する</a>
+    {% else %}
+    <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span　class="glyphicon
+            glyphicon-pencil"></span>編集する</a>
+    <a class="btn btn-default" href="{%url 'post_remove' pk=post.pk%}"><span
+            class="glyphicon glyphicon-remove"></span></a>
+    {% endif %}
+    {% endif %}
+    <hr>
+    <h4>コメント欄</h4>
+    <form method="POST" class="commentForm" action='comment/submission/'>{% csrf_token %}
+        <input type="hidden" name='article_id' value=pk>
+        <div>
+            名前：
+
+            <input type="text" name="author" value={% if user.is_authenticated %}{{ user.get_username }}
+                {% else %}"名無しさん"{% endif %}>
+
+
+        </div>
+        <div>
+            <p>コメント</p><textarea name="text"></textarea>
+        </div>
+        <button type="submit">投稿</button>
+    </form>
+    {% for comments in comment %}
+    <hr>
+    <div>投稿者：{{ comments.author }}</div>
+    <div>
+        <p>コメント</p>{{ comments.text }}
+
+        {% endfor %}
+</article>
+{% endblock %}

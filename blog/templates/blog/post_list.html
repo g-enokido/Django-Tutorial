@@ -5,28 +5,25 @@
 <head>
     <title>{% block title %}記事一覧ページ{% endblock%}</title>
 </head>
-<div class="contents">
-    {% for post in posts %}
-    <div class="post">
-        <article>
-            <h3>{{ post.title }}</h3>
-            <div class="images">
-                {% if post.image %}
-                <img src="{{ post.image.url }}" />
-                {% endif %}
-            </div>
-            <p>
-
-                {{ post.text|linebreaksbr }}
-            </p>
-            <a href="{% url 'post_detail' pk=post.pk %}" class="property_button">続きを読む</a>
-            <span class="date">
-                <p>更新日時</p>{{ post.published_date }}
-            </span>
-        </article>
-
+{% for post in posts %}
+<article>
+    <h3>{{ post.title }}</h3>
+    <div class="images">
+        {% if post.image %}
+        <img src="{{ post.image.url }}" />
+        {% endif %}
     </div>
-    {% endfor %}
+    <p>
+
+        {{ post.text|linebreaksbr }}
+    </p>
+    <a href="{% url 'post_detail' pk=post.pk %}" class="property_button">続きを読む</a>
+    <span class="date">
+        <p>更新日時</p>{{ post.published_date }}
+    </span>
+</article>
+
+{% endfor %}
 
 </div>
 <div class='sidebar'>
@@ -34,5 +31,5 @@
     {% for cate in request.session.category %}
     <a href='{% url "category" pk=cate.id %}'>{{cate.category_name}}</p>
         {% endfor %}
-</div>
-{% endblock %}
+
+        {% endblock %}

@@ -30,6 +30,7 @@
 <div class="sidebar">
     <ul>
         <li><a href="{% url 'show_user' pk=request.user.id %}">ユーザー情報照会</a></li>
+        <li><a href="{% url 'post_draft_list' pk=user.id %}">下書き一覧</a></li>
         <li><a href="{% url 'reject' pk=request.user.id %}">退会する</a></li>
     </ul>
 </div>

@@ -6,15 +6,15 @@
     <title>{% block title %}記事編集ページ{% endblock%}</title>
 </head>
 
-<div class="contents">
+<article>
     <form method="POST" class="post-form" enctype="multipart/form-data">{% csrf_token %}
         {% if detail_flag %}
-        <h2>記事編集</h2>
+        <h3>記事編集</h3>
         <input type="hidden" name="blog_set" value={{request.session.blog.id}}>
         {% else %}
-        <h2>新規投稿</h2>
-        <h2>投稿先:{{request.session.target_blog.blog_name}}
-        </h2>
+        <h3>新規投稿</h3>
+        <h4>投稿先:{{request.session.target_blog.blog_name}}
+        </h4>
         <div>
 
             カテゴリー名:<input type="text" name="category_name" />
@@ -33,5 +33,5 @@
         下書きとして保存する:<input type="checkbox" name="draft_flag" value="False" />
         <button type="submmit" class="save btn btn-default">投稿する</button>
     </form>
-</div>
+</article>
 {% endblock %}
