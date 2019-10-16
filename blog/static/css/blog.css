@@ -69,6 +69,17 @@ h1, h2, h3, h4 {
     font-variant: 1.2em;
     font-weight:600;
 }
+
+.menu-item:hover{
+    background-color: #fff; /*背景色の指定*/
+    border: 1px solid orange;   /*線を描く*/
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;   /*ホバー時の変化をなめらかに*/
+    color: orange;  /*文字色の指定*/
+    overflow: hidden;   /*おまじない*/
+}
+
 .post {
     margin-bottom: 150px;
 }
@@ -77,22 +88,6 @@ h1, h2, h3, h4 {
     color: #000000;
 }
 
-.title_box{
-    width: 100%;    /*横幅の指定*/
-    font-size: 150%;    /*フォントサイズの指定*/
-    color: #313131; /*文字色の変更*/
-    letter-spacing: 3px;    /*文字と文字の間隔をあける*/
-    padding-bottom:2px; /*文字下部の余白指定*/
-    padding-top: 10px; /*文字上部の余白指定*/
-    border-bottom: 1px solid #bababa;   /*文字の下部に線を描く*/
-    margin-bottom: 15px;    /*セクションタイトルの下に余白をつくる*/
-    float: left;    /*フロートする*/
-    padding:0.25em 0.5em;
-    margin:1em 10;
-    max-width:900px;
-    width:450px;
-    background-color: #cde4ff;
-}
 
 .article_box_index{
     padding:0.5em 1em;

@@ -6,7 +6,7 @@
 </head>
 <article>
     <h3>{{ post.title }}</h3>
-    <h4>カテゴリー:{% if category != '未分類' %}{{ category.category_name }}{% else %}未分類{%endif%}</h4>
+    <h4>カテゴリー:{% if post.category != '未分類' %}{{ post.category }}{% else %}未分類{%endif%}</h4>
     <div>
         {% if post.image %}
         <img src="{{ post.image.url }}" />
