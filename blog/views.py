@@ -1,17 +1,19 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_protect
 from django.utils import timezone
 from comment.models import Comment
 from .models import Post, Category
-from accounts.models import Blog
+from accounts.models import Blog, CustomUser
 from .forms import PostForm, CategoryForm
 
 # Create your views here.
 
 
 def index(request):
-    posts = Post.objects.all().select_related(
+    posts = Post.objects.filter(
+        published_date__lte=timezone.now()).order_by('created_date').reverse().select_related(
         "blog")[:5]
 
     if 'blog' in request.session:
@@ -23,31 +25,44 @@ def index(request):
     return render(request, 'blog/index.html', {'articles': posts})
 
 
+def paging_query(request, queryset, count):
+    paginator = Paginator(queryset, count)
+    page = request.GET.get('page')
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        page_obj = paginator.page(1)
+    except EmptyPage:
+        page_obj = paginator.page(paginator.num_pages)
+    return page_obj
+
+
 def post_list(request, pk):
     posts = Post.objects.filter(
         published_date__lte=timezone.now(), blog_id=pk).order_by('created_date').reverse()
+    page_obj = paging_query(request, posts, 1)
     blog = get_object_or_404(Blog, pk=pk)
+    user = get_object_or_404(CustomUser, pk=blog.author_id)
     request.session['blog'] = blog
     category = Category.objects.filter(blog_id=blog.id)
     request.session['category'] = category
     category.group_by = ['category_id']
 
-    return render(request, 'blog/post_list.html', {'posts': posts, 'category': category})
+    return render(request, 'blog/post_list.html',
+                  {'posts': posts, 'category': category, 'page_obj': page_obj, 'user': user})
 
 
 def post_detail(request, pk):
-    if 'blog' not in request.session:
-        blog_id = get_object_or_404(Post, pk=pk).blog_id
-        blog_data = get_object_or_404(Blog, pk=blog_id)
-        request.session['blog'] = blog_data
 
-    blogId = request.session['blog'].id
-    post = get_object_or_404(Post, pk=pk, blog_id=blogId)
+    blog = get_object_or_404(Post, pk=pk).blog
+    if 'blog'not in request.session:
+        request.session['blog'] = blog
+    post = get_object_or_404(Post, pk=pk, blog_id=blog.id)
     if post.category_id == 0:
         category = '未分類'
     else:
         category = get_object_or_404(
-            Category, pk=post.category_id, blog_id=blogId)
+            Category, pk=post.category_id, blog_id=blog.id)
     comment = Comment.objects.filter(article_id=pk)
 
     return render(request, 'blog/post_detail.html', {'post': post, 'comment': comment, 'category': category})

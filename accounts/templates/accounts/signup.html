@@ -1,17 +1,21 @@
 {% extends "blog/base.html" %}
 {% block title %}
 
+
+{% endblock %}
+{% block content %}
+
 <head>
     <title>会員登録ページ</title>
 </head>
-{% endblock %}
-{% block content %}
-<div class="contents">
+<article>
     <form method="post">
         <h3>ユーザー登録</h3>
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">登録</button>
     </form>
-</div>
+</article>
+
+
 {% endblock %}
