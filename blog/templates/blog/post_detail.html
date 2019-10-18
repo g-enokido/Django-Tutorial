@@ -37,11 +37,8 @@
         <input type="hidden" name='article_id' value=pk>
         <div>
             名前：
-
             <input type="text" name="author" value={% if user.is_authenticated %}{{ user.get_username }}
                 {% else %}"名無しさん"{% endif %}>
-
-
         </div>
         <div>
             <p>コメント</p><textarea name="text"></textarea>
