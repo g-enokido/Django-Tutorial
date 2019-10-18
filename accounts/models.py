@@ -22,7 +22,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         _('email address'), unique=True,)
 
     profile_icon = StdImageField(
-        verbose_name='アイコン', upload_to='profile_icons/', null=True, blank=True, variations={
+        verbose_name='アイコン', upload_to='profile_icons/', default='default.png', variations={
             'large': (600, 400),
             'thumbnail': (100, 100, True),
             'medium': (300, 200),

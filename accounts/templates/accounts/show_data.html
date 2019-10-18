@@ -15,8 +15,11 @@
     <article>
         <h3>ユーザー情報</h3>
         {% if request.user.profile_icon %}
+        {% if request.user.profile_icon == 'default.png' %}
+        <img src="{{request.user.profile_icon.url }}" />
+        {% else %}
         <img src="{{request.user.profile_icon.thumbnail.url }}" />
-        {% endif %}
+        {% endif %} {% endif %}
         <p>ユーザー名:{{request.user.username}}</p>
         <p>自己紹介:{{request.user.self_introduction|linebreaksbr}}</p>
     </article>
