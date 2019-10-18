@@ -40,7 +40,7 @@ def paging_query(request, queryset, count):
 def post_list(request, pk):
     posts = Post.objects.filter(
         published_date__lte=timezone.now(), blog_id=pk).order_by('created_date').reverse()
-    page_obj = paging_query(request, posts, 1)
+    page_obj = paging_query(request, posts, 10)
     blog = get_object_or_404(Blog, pk=pk)
     user = get_object_or_404(CustomUser, pk=blog.author_id)
     request.session['blog'] = blog
