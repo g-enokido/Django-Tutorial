@@ -30,6 +30,8 @@ class Account_login(CreateView):
         return render(request, 'registration/login.html', {'form': form, })
 
     def get(self, request, *args, **kwargs):
+        if 'blog' in request.session:
+            del request.session['blog']
         form = LoginForm(request.POST)
         return render(request, 'registration/login.html', {'form': form, })
 
@@ -45,6 +47,8 @@ def Create_blog(request):
             post.save()
             return redirect('top_page')
     else:
+        if 'blog' in request.session:
+            del request.session['blog']
         form = BlogForm()
         return render(request, 'accounts/create_blog.html', {'form': form})
 

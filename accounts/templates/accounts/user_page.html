@@ -18,9 +18,10 @@
     <hr>
     <a href="{% url 'post_new' pk=blogs.id %}" class="menu-item"><span class="glyphicon glyphicon-plus"></span></a>
     <a href="{% url 'blog_delete' pk=blogs.id %}" class="menu-item">削除する</a>
+    {% endfor %}
 </article>
 
-{% endfor %}
+
 {% else %}
 <p>現在保有しているブログはありません。</p>
 <a href="{% url 'blog_settings' %}" class="menu-item">ブログを開設する</a>
