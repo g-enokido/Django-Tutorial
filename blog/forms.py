@@ -6,8 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        image = forms.ImageField(label='画像ファイル')
-        fields = ['title', 'text', 'image', ]
+        fields = ['title', 'text', ]
 
 
 class CategoryForm(forms.ModelForm):

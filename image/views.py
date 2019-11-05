@@ -1,5 +1,5 @@
 from django.views import generic
-from .form import SingleUploadModelForm
+from .forms import SingleUploadModelForm
 from .models import UploadFile
 from django.shortcuts import render, redirect
 # Create your views here.

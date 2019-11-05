@@ -25,8 +25,6 @@ class Post(models.Model):
     created_date = models.DateTimeField(default=timezone.now)
     category = models.ForeignKey(Category, verbose_name='掲載ブログ',
                                  on_delete=models.CASCADE, default=0)
-    image = models.ImageField(
-        upload_to='pictures/', null=True, blank=True)
     published_date = models.DateTimeField(blank=True, null=True)
     blog = models.ForeignKey(Blog, verbose_name='掲載ブログ',
                              on_delete=models.CASCADE, default=0)
