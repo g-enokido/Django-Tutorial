@@ -1,7 +1,6 @@
 from django.db import models
 from stdimage import StdImageField
 from django.conf import settings
-from blog.models import Post
 # Create your models here.
 
 

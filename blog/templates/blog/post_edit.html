@@ -1,10 +1,10 @@
 {% extends 'blog/base.html' %}
-
+{% load static %}
 {% block content %}
 
 <head>
     <title>{% block title %}記事編集ページ{% endblock%}</title>
-    <script type="text/javascripts" src="to_post_edit.js"></script>
+    <script type="text/javascript" src="{% static 'javascripts/to_post_edit.js' %}"></script>
 </head>
 
 <article>
@@ -28,11 +28,12 @@
             {%endfor%}{{blog.id}}
         </select>
         {% endif %}
-        <a href="javascript:void(0);"
-            onclick="window.open('{% url 'uploader' %}','subwin','width=500,height=500');">+</a>
-        <a href="{% url 'uploader' %}">画像をアップロードする。</a>
+        <br>
+        <a href="javascript:void(0);" onclick="window.open('{% url "uploader" %}', 'subwin' , 'width=500,height=500'
+            );">画像をアップロードする。</a>
+        <br>
         {{ form.as_p }}
-        <input type="hidden" name="author_id" value="{{ user.get_id }}">
+        <input type=" hidden" name="author_id" value="{{ user.get_id }}">
         下書きとして保存する:<input type="checkbox" name="draft_flag" value="False" />
         <button type="submmit" class="save btn btn-default">投稿する</button>
     </form>
