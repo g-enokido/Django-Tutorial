@@ -8,12 +8,9 @@
     <h3>{{ post.title }}</h3>
     <h4>カテゴリー:{% if post.category != '未分類' %}{{ post.category }}{% else %}未分類{%endif%}</h4>
     <div>
-        {% if post.image %}
-        <img src="{{ post.image.url }}" />
-        {% endif %}
     </div>
     <div class="article_box">
-        <p>{{ post.text|linebreaksbr }}</p>
+        <p>{{ post.text|safe}}</p>
     </div>
 
     {% if post.published_date %}

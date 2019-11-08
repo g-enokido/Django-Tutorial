@@ -29,8 +29,7 @@
         </select>
         {% endif %}
         <br>
-        <a href="javascript:void(0);" onclick="window.open('{% url "uploader" %}', 'subwin' , 'width=500,height=500'
-            );">画像をアップロードする。</a>
+        <input type="button" onclick="PopupOpener('{% url 'file_list' %}');" value="画像をアップロードする。" />
         <br>
         {{ form.as_p }}
         <input type=" hidden" name="author_id" value="{{ user.get_id }}">

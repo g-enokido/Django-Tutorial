@@ -26,14 +26,10 @@
     <div class="post">
         <h3>{{ post.title }}</h3>
         <div class="images">
-            {% if post.image %}
-            <img src="{{ post.image.url }}" />
-            {% endif %}
         </div>
         <div>
             <p>
-
-                {{ post.text|linebreaksbr }}
+                {{ post.text|safe }}
             </p>
         </div>
         <a href="{% url 'post_detail' pk=post.pk %}" class="property_button">続きを読む</a>

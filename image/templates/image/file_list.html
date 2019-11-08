@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+{% load static %}
 {% block title %}
 
 {% endblock %}
@@ -6,7 +7,9 @@
 
 <head>
     <title>画像一覧</title>
+    <script type="text/javascript" src="{% static 'javascripts/to_post_edit.js' %}"></script>
 </head>
+
 <div class="contents">
     <p><a href="{% url 'uploader' %}">ファイルアップロードへ</a></p>
     <h3>ファイルの一覧</h3>
@@ -22,6 +25,8 @@
             <th>{{uploadfile.file.name}}</th>
             <td><a href="{{ uploadfile.file.url }}"><img src="{{ uploadfile.file.thumbnail.url }}"
                         alt="イボンコペッタンコ" /></a>
+            </td>
+            <td><input type="button" value="追加" onclick="add_images('{{uploadfile.file.url}}');" 　>
             </td>
 
         </tr>
