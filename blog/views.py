@@ -43,13 +43,14 @@ def post_list(request, pk):
     page_obj = paging_query(request, posts, 10)
     blog = get_object_or_404(Blog, pk=pk)
     user = get_object_or_404(CustomUser, pk=blog.author_id)
+    request.session['user'] = user
     request.session['blog'] = blog
     category = Category.objects.filter(blog_id=blog.id)
     request.session['category'] = category
     category.group_by = ['category_id']
 
     return render(request, 'blog/post_list.html',
-                  {'posts': posts, 'category': category, 'page_obj': page_obj, 'user': user})
+                  {'posts': posts, 'category': category, 'page_obj': page_obj, })
 
 
 def post_detail(request, pk):

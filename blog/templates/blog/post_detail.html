@@ -4,6 +4,22 @@
 <head>
     <title>{% block title %}{{ post.title }}{% endblock%}</title>
 </head>
+<div class='sidebar'>
+    <h3>ユーザー情報</h3>
+    {% if request.session.user.profile_icon %}
+    {% if request.session.user.profile_icon == 'default.png' %}
+    <img src="{{request.session.user.profile_icon.url }}" />
+    {% else %}
+    <img src="{{urequest.session.user.profile_icon.thumbnail.url }}" />
+    {% endif %} {% endif %}
+    <p>ユーザー名:{{request.session.user.username}}</p>
+    <p>自己紹介:{{request.session.user.self_introduction|linebreaksbr}}</p>
+
+    <h3>カテゴリー一覧</h3>
+    {% for cate in request.session.category %}
+    <a href='{% url "category" pk=cate.id %}'>{{cate.category_name}}</p>
+        {% endfor %}
+</div>
 <article>
     <h3>{{ post.title }}</h3>
     <h4>カテゴリー:{% if post.category != '未分類' %}{{ post.category }}{% else %}未分類{%endif%}</h4>

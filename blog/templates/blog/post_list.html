@@ -7,14 +7,14 @@
 </head>
 <div class='sidebar'>
     <h3>ユーザー情報</h3>
-    {% if user.profile_icon %}
-    {% if user.profile_icon == 'default.png' %}
-    <img src="{{user.profile_icon.url }}" />
+    {% if request.session.user.profile_icon %}
+    {% if request.session.user.profile_icon == 'default.png' %}
+    <img src="{{request.session.user.profile_icon.url }}" />
     {% else %}
-    <img src="{{user.profile_icon.thumbnail.url }}" />
+    <img src="{{urequest.session.user.profile_icon.thumbnail.url }}" />
     {% endif %} {% endif %}
-    <p>ユーザー名:{{user.username}}</p>
-    <p>自己紹介:{{user.self_introduction|linebreaksbr}}</p>
+    <p>ユーザー名:{{request.session.user.username}}</p>
+    <p>自己紹介:{{request.session.user.self_introduction|linebreaksbr}}</p>
 
     <h3>カテゴリー一覧</h3>
     {% for cate in request.session.category %}
