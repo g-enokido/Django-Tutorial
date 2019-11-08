@@ -10,7 +10,7 @@
     <div>
     </div>
     <div class="article_box">
-        <p>{{ post.text|safe}}</p>
+        <p>{{ post.text|safe|linebreaksbr}}</p>
     </div>
 
     {% if post.published_date %}

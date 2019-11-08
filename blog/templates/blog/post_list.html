@@ -29,7 +29,7 @@
         </div>
         <div>
             <p>
-                {{ post.text|safe }}
+                {{ post.text|safe|linebreaksbr }}
             </p>
         </div>
         <a href="{% url 'post_detail' pk=post.pk %}" class="property_button">続きを読む</a>
