@@ -29,7 +29,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         })
 
     self_introduction = models.CharField(
-        verbose_name='自己紹介', max_length=512, blank=True, )
+        verbose_name='自己紹介', max_length=150, blank=True, )
 
     is_admin = models.BooleanField(default=True)
     is_staff = models.BooleanField(
