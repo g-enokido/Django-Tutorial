@@ -1,2 +1,2 @@
-Django~= later
+Django = later
 Pillow =  later
