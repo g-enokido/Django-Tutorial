@@ -16,8 +16,9 @@
     <h3>{{ blogs.blog_name }}</h3>
     <div>{{ blogs.blog_detail }}</div>
     <hr>
-    <a href="{% url 'post_new' pk=blogs.id %}" class="menu-item"><span class="glyphicon glyphicon-plus"></span></a>
-    <a href="{% url 'blog_delete' pk=blogs.id %}" class="menu-item">削除する</a>
+    <a class="btn btn-default" href="{% url 'post_list' pk=blogs.id  %}">投稿一覧</a>
+    <a class="btn btn-default" href="{% url 'post_new'    pk=blogs.id %}">新規投稿</a>
+    <a class="btn btn-default" href="{% url 'blog_delete' pk=blogs.id %}">削除する</a>
     {% endfor %}
 </article>
 

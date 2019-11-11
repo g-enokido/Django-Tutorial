@@ -40,8 +40,7 @@
     {% else %}
     <a class="btn btn-default" href="{% url 'post_edit' pk=post.pk %}"><span　class="glyphicon
             glyphicon-pencil"></span>編集する</a>
-    <a class="btn btn-default" href="{%url 'post_remove' pk=post.pk%}"><span
-            class="glyphicon glyphicon-remove"></span></a>
+    <a class="btn btn-default" href="{%url 'post_remove' pk=post.pk%}">削除する</a>
     {% endif %}
     {% endif %}
     <hr>
@@ -50,7 +49,7 @@
         <input type="hidden" name='article_id' value=pk>
         <div>
             名前：
-            <input type="text" name="author" value={% if user.is_authenticated %}{{ user.get_username }}
+            <input type="text" name="author" value={% if user.is_authenticated %}{{ user.username }}
                 {% else %}"名無しさん"{% endif %}>
         </div>
         <div>
